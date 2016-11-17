@@ -6,34 +6,12 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        Hand h = new Hand();
-        h.add(new Card(Suit.SPADES, Value.ACE));
-        h.add(new Card(Suit.DIAMONDS, Value.ACE));
-        System.out.println(h.countScore());
+        Table t = new Table();
+        t.initTable();
+        t.startRound();
+        t.playRound();
+        t.decideWinners();
 
-        List<Player> players = new LinkedList<Player>();
-        Dealer dealer = new Dealer();
 
-        players.add(new Computer(new LimitIntellect(14)));
-        players.add(new Computer(new LimitIntellect(20)));
-        players.add(new Human());
-        players.add(dealer);
-
-        for (Player player : players) {
-            dealer.deal(player);
-            dealer.deal(player);
-        }
-        for (Player player : players) {
-            Command command;
-            do {
-                System.out.println("" + player.hand.countScore() + ": " + player.hand);
-                command = player.decision();
-                switch (command) {
-                    case HIT:
-                        dealer.deal(player);
-                        break;
-                }
-            } while (command != Command.STAND);
-        }
     }
 }
